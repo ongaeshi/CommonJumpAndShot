@@ -17,6 +17,7 @@ class Game
     player.dx                    = 0
     player.dy                    = 0
     player.action                = :falling
+    player.is_right              = true
 
     player.max_speed             = 20
     player.jump_power            = 15
@@ -98,6 +99,7 @@ class Game
       y: player.y,
       w: player.size,
       h: player.size,
+      flip_horizontally: !player.is_right,
       path: 'sprites/player1.png'
     }
   end
@@ -152,8 +154,10 @@ class Game
     if player.dx.abs < 20
       if inputs.keyboard.left
         player.dx -= 2
+        player.is_right = false
       elsif inputs.keyboard.right
         player.dx += 2
+        player.is_right = true
       end
     end
   end

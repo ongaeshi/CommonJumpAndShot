@@ -141,11 +141,11 @@ class Game
   end
 
   def input_jump
-    if inputs.keyboard.key_down.space
+    if inputs.keyboard.key_down.space || inputs.keyboard.key_down.z
       player_jump
     end
 
-    if inputs.keyboard.key_held.space
+    if inputs.keyboard.key_held.space || inputs.keyboard.key_held.z
       player_jump_increase_air_time
     end
   end

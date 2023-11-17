@@ -11,7 +11,7 @@ class Game
   def defaults
     return if state.tick_count != 0
 
-    player.x                     = 64
+    player.x                     = 512
     player.y                     = 800
     player.size                  = 50
     player.dx                    = 0
@@ -27,8 +27,8 @@ class Game
     state.drag                   = 0.001
     state.tile_size              = 64
     state.tiles                ||= [
-      { ordinal_x:  0, ordinal_y: 0 },
-      { ordinal_x:  1, ordinal_y: 0 },
+      # { ordinal_x:  0, ordinal_y: 0 },
+      # { ordinal_x:  1, ordinal_y: 0 },
       { ordinal_x:  2, ordinal_y: 0 },
       { ordinal_x:  3, ordinal_y: 0 },
       { ordinal_x:  4, ordinal_y: 0 },
@@ -40,7 +40,16 @@ class Game
       { ordinal_x: 10, ordinal_y: 0 },
       { ordinal_x: 11, ordinal_y: 0 },
       { ordinal_x: 12, ordinal_y: 0 },
+      { ordinal_x: 13, ordinal_y: 0 },
+      { ordinal_x: 14, ordinal_y: 0 },
+      { ordinal_x: 15, ordinal_y: 0 },
+      { ordinal_x: 16, ordinal_y: 0 },
+      { ordinal_x: 17, ordinal_y: 0 },
+      # { ordinal_x: 18, ordinal_y: 0 },
+      # { ordinal_x: 19, ordinal_y: 0 },
 
+      { ordinal_x:  7, ordinal_y: 3 },
+      { ordinal_x:  8, ordinal_y: 3 },
       { ordinal_x:  9, ordinal_y: 3 },
       { ordinal_x: 10, ordinal_y: 3 },
       { ordinal_x: 11, ordinal_y: 3 },

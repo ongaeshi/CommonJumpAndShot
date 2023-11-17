@@ -55,7 +55,13 @@ class Game
   end
 
   def render
-    args.outputs.solids << [0, 0, args.grid.w, args.grid.h, 252, 223, 205]
+    outputs.sprites << {
+      x: 0,
+      y: 0,
+      w: args.grid.w,
+      h: args.grid.h,
+      path: 'sprites/background1.png'
+    }
     render_player
     render_tiles
     # render_grid
@@ -83,13 +89,13 @@ class Game
       y: player.y,
       w: player.size,
       h: player.size,
-      path: 'sprites/Tiles/tile_0045.png'
+      path: 'sprites/player1.png'
     }
   end
 
   def render_tiles
     outputs.sprites << state.tiles.map do |t|
-      t.merge path: 'sprites/Tiles/tile_0021.png',
+      t.merge path: 'sprites/tile1.png',
               x: t.ordinal_x * 64,
               y: t.ordinal_y * 64,
               w: 64,

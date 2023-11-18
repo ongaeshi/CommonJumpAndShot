@@ -286,10 +286,19 @@ class Game
   end
 
   def player_shot
-    outputs.labels << {
-      x: player.x + 50 * player_dir,
-      y: player.y + 30,
-      text: "Shot!!",
+    x = if player.is_right 
+      player.x + 50
+    else
+      player.x - 20
+    end
+    
+    outputs.sprites << {
+      x: x,
+      y: player.y + 10,
+      w: 20,
+      h: 20,
+      flip_horizontally: !player.is_right,
+      path: "sprites/weapon1.png",
     }
   end
 

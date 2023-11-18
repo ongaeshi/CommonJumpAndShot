@@ -6,6 +6,7 @@ class Game
     render
     input
     calc
+    post_calc
   end
 
   def defaults
@@ -93,6 +94,10 @@ class Game
     calc_game_over
   end
 
+  def post_calc
+    input_shot
+  end
+
   def render_player
     outputs.sprites << {
       x: player.x,
@@ -138,6 +143,12 @@ class Game
     end
 
     outputs.sprites << { x: 0, y: 0, w: 1280, h: 720, path: :grid }
+  end
+
+  def input_shot
+    if inputs.keyboard.key_down.x
+      player_shot
+    end
   end
 
   def input_jump
@@ -264,6 +275,22 @@ class Game
   def player_prev_rect
     player.rect.merge x: player.x - player.dx,
                       y: player.y - player.dy
+  end
+
+  def player_dir
+    if player.is_right
+      1
+    else
+      -1
+    end
+  end
+
+  def player_shot
+    outputs.labels << {
+      x: player.x + 50 * player_dir,
+      y: player.y + 30,
+      text: "Shot!!",
+    }
   end
 
   def player_jump

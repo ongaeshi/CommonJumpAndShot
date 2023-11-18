@@ -74,6 +74,7 @@ class Game
       path: 'sprites/background1.png'
     }
     render_player
+    render_weapons
     render_tiles
     # render_grid
   end
@@ -85,6 +86,7 @@ class Game
 
   def calc
     calc_player_rect
+    calc_weapons
     calc_left
     calc_right
     calc_below
@@ -107,6 +109,19 @@ class Game
       flip_horizontally: !player.is_right,
       path: 'sprites/player1.png'
     }
+  end
+
+  def render_weapons
+    weapons.each do |w|
+      outputs.sprites << {
+        x: w.x,
+        y: w.y,
+        w: 20,
+        h: 20,
+        flip_horizontally: !w.is_right,
+        path: "sprites/weapon1.png",
+      }
+    end
   end
 
   def render_tiles
@@ -238,6 +253,13 @@ class Game
     player.y  = collision.rect.bottom - player.rect.h
   end
 
+  def calc_weapons
+    weapons.each do |w|
+      dir = w.is_right ? 1 : -1
+      w.x += 12 * dir
+    end
+  end
+
   def player_current_rect
     { x: player.x, y: player.y, w: player.size, h: player.size }
   end
@@ -257,6 +279,10 @@ class Game
 
   def player
     state.player ||= args.state.new_entity :player
+  end
+
+  def weapons
+    state.weapons ||= []
   end
 
   def player_next_dy
@@ -291,14 +317,11 @@ class Game
     else
       player.x - 20
     end
-    
-    outputs.sprites << {
+
+    weapons << {
       x: x,
       y: player.y + 10,
-      w: 20,
-      h: 20,
-      flip_horizontally: !player.is_right,
-      path: "sprites/weapon1.png",
+      is_right: player.is_right,
     }
   end
 

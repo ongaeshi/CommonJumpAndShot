@@ -112,12 +112,18 @@ class Game
   end
 
   def render_weapons
+    # args.outputs.debug << {
+    #   x: 40,
+    #   y: args.grid.h - 10,
+    #   text: "weapons: #{weapons.count}",
+    # }.label!
+
     weapons.each do |w|
       outputs.sprites << {
         x: w.x,
         y: w.y,
-        w: 20,
-        h: 20,
+        w: 32,
+        h: 32,
         flip_horizontally: !w.is_right,
         path: "sprites/weapon1.png",
       }
@@ -258,6 +264,11 @@ class Game
       dir = w.is_right ? 1 : -1
       w.x += 12 * dir
     end
+
+    weapons.delete_if do |w|
+      w.x > args.grid.w ||
+      w.x < -32
+    end
   end
 
   def player_current_rect
@@ -320,7 +331,7 @@ class Game
 
     weapons << {
       x: x,
-      y: player.y + 10,
+      y: player.y + 8,
       is_right: player.is_right,
     }
   end

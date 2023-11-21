@@ -74,6 +74,7 @@ class Game
       path: 'sprites/background1.png'
     }
     render_player
+    render_enemies
     render_weapons
     render_tiles
     # render_grid
@@ -128,6 +129,26 @@ class Game
         path: "sprites/weapon1.png",
       }
     end
+  end
+
+  def render_enemies
+    outputs.sprites << {
+      x: 64 * 15,
+      y: 64,
+      w: 64,
+      h: 64,
+      flip_horizontally: true,
+      path: "sprites/enemy1.png",
+    }
+
+    outputs.sprites << {
+      x: 64 * 10,
+      y: 64 * 4,
+      w: 64,
+      h: 64,
+      flip_horizontally: true,
+      path: "sprites/enemy1.png",
+    }
   end
 
   def render_tiles

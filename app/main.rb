@@ -167,27 +167,27 @@ class Game
   end
 
   def input_shot
-    if inputs.keyboard.key_down.x
+    if inputs.keyboard.key_down.x || inputs.controller_one.key_down.a
       player_shot
     end
   end
 
   def input_jump
-    if inputs.keyboard.key_down.space || inputs.keyboard.key_down.z
+    if inputs.keyboard.key_down.space || inputs.keyboard.key_down.z || inputs.controller_one.key_down.b
       player_jump
     end
 
-    if inputs.keyboard.key_held.space || inputs.keyboard.key_held.z
+    if inputs.keyboard.key_held.space || inputs.keyboard.key_held.z || inputs.controller_one.key_held.b
       player_jump_increase_air_time
     end
   end
 
   def input_move
     if player.dx.abs < 20
-      if inputs.keyboard.left
+      if inputs.left
         player.dx -= 2
         player.is_right = false
-      elsif inputs.keyboard.right
+      elsif inputs.right
         player.dx += 2
         player.is_right = true
       end

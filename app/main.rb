@@ -25,6 +25,23 @@ class Game
     player.jump_air_time         = 15
     player.jump_increase_power   = 1
 
+    state.enemies = []
+    enemies << {
+      x: 64 * 15,
+      y: 64,
+      is_right: false,
+    }
+    enemies << {
+      x: 64 * 10,
+      y: 64 * 4,
+      is_right: false,
+    }
+    enemies << {
+      x: 64 * 2,
+      y: 64,
+      is_right: true,
+    }
+
     state.gravity                = -1
     state.drag                   = 0.001
     state.tile_size              = 64
@@ -132,23 +149,16 @@ class Game
   end
 
   def render_enemies
-    outputs.sprites << {
-      x: 64 * 15,
-      y: 64,
-      w: 64,
-      h: 64,
-      flip_horizontally: true,
-      path: "sprites/enemy1.png",
-    }
-
-    outputs.sprites << {
-      x: 64 * 10,
-      y: 64 * 4,
-      w: 64,
-      h: 64,
-      flip_horizontally: true,
-      path: "sprites/enemy1.png",
-    }
+    enemies.each do |e|
+      outputs.sprites << {
+        x: e.x,
+        y: e.y,
+        w: 64,
+        h: 64,
+        flip_horizontally: !e.is_right,
+        path: "sprites/enemy1.png",
+      }
+    end
   end
 
   def render_tiles
@@ -316,6 +326,10 @@ class Game
 
   def weapons
     state.weapons ||= []
+  end
+
+  def enemies
+    state.enemies
   end
 
   def player_next_dy

@@ -288,7 +288,8 @@ class Game
 
     weapons.delete_if do |w|
       w.x > args.grid.w ||
-      w.x < -32
+      w.x < -32 ||
+      tiles_find_colliding(tiles, { x: w.x, y: w.y, w: 32, h: 32 }) 
     end
   end
 

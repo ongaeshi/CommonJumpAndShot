@@ -90,10 +90,10 @@ class Game
       h: args.grid.h,
       path: 'sprites/background1.png'
     }
+    render_tiles
     render_player
     render_enemies
     render_weapons
-    render_tiles
     # render_grid
   end
 

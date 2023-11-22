@@ -292,6 +292,14 @@ class Game
   end
 
   def calc_enemies
+    while enemies.count < 3
+      enemies << {
+        x: 64 * rand(20),
+        y: 64 * (rand(9) + 1),
+        is_right: rand(2) == 1,
+      }
+    end
+
     enemies.delete_if do |e|
       enemy_rect = { x: e.x, y: e.y, w: 64, h: 64 }
       weapons.find do |w|

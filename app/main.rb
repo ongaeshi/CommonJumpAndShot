@@ -104,6 +104,7 @@ class Game
 
   def calc
     calc_player_rect
+    calc_enemies
     calc_weapons
     calc_left
     calc_right
@@ -290,6 +291,21 @@ class Game
     player.y  = collision.rect.bottom - player.rect.h
   end
 
+  def calc_enemies
+    enemies.delete_if do |e|
+      enemy_rect = { x: e.x, y: e.y, w: 64, h: 64 }
+      weapons.find do |w|
+        weapon_rect = { x: w.x, y: w.y, w: 32, h: 32 }
+        if enemy_rect.intersect_rect?(weapon_rect)
+          w.dead = true
+          true
+        else
+          false
+        end
+      end
+    end
+  end
+
   def calc_weapons
     weapons.each do |w|
       dir = w.is_right ? 1 : -1
@@ -297,6 +313,7 @@ class Game
     end
 
     weapons.delete_if do |w|
+      w.dead ||
       w.x > args.grid.w ||
       w.x < -32 ||
       tiles_find_colliding(tiles, { x: w.x, y: w.y, w: 32, h: 32 }) 

@@ -247,6 +247,7 @@ class Game
       player.y = 800
       player.dx = 0
       player.dy = 0
+      state.number_of_enemies_destoryed = 0
     end
   end
 

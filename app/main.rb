@@ -237,7 +237,12 @@ class Game
   end
 
   def calc_game_over
-    if player.y < -64
+    is_hit_enemy = enemies.find do |e|
+      enemy_rect = { x: e.x, y: e.y, w: 64, h: 64 }
+      player.rect.intersect_rect? enemy_rect
+    end
+
+    if is_hit_enemy || player.y < -64 
       player.x = 64
       player.y = 800
       player.dx = 0

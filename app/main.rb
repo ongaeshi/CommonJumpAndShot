@@ -41,6 +41,7 @@ class Game
       y: 64,
       is_right: true,
     }
+    state.number_of_enemies_destoryed = 0
 
     state.gravity                = -1
     state.drag                   = 0.001
@@ -95,6 +96,7 @@ class Game
     render_enemies
     render_weapons
     # render_grid
+    render_info
   end
 
   def input
@@ -196,6 +198,14 @@ class Game
     end
 
     outputs.sprites << { x: 0, y: 0, w: 1280, h: 720, path: :grid }
+  end
+
+  def render_info
+    outputs.labels << {
+      x: 20,
+      y: args.grid.h - 10,
+      text: "Enemy: #{state.number_of_enemies_destoryed}",
+    }
   end
 
   def input_shot
@@ -306,6 +316,7 @@ class Game
         weapon_rect = { x: w.x, y: w.y, w: 32, h: 32 }
         if enemy_rect.intersect_rect?(weapon_rect)
           w.dead = true
+          state.number_of_enemies_destoryed += 1
           true
         else
           false

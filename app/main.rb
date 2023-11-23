@@ -315,6 +315,12 @@ class Game
       }
     end
 
+    enemies.each do |e|
+      e.x += e.is_right ? 2 : -2
+      e.x = -64 if e.x > args.grid.w
+      e.x = args.grid.w if e.x < -64
+    end
+
     enemies.delete_if do |e|
       enemy_rect = { x: e.x, y: e.y, w: 64, h: 64 }
       weapons.find do |w|

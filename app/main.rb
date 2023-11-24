@@ -266,17 +266,22 @@ class Game
   end
 
   def calc_game_over
-    is_hit_enemy = enemies.find do |e|
+    enemies.find do |e|
       enemy_rect = { x: e.x, y: e.y, w: 64, h: 64 }
-      player.rect.intersect_rect? enemy_rect
+      if player.rect.intersect_rect? enemy_rect
+        player.dx = 15 * (e.is_right ? 1 : -1)
+        player.dy = 15
+        true
+      else
+        false
+      end
     end
 
-    if is_hit_enemy || player.y < -64 
+    if player.y < -64 
       player.x = 64
       player.y = 800
       player.dx = 0
       player.dy = 0
-      state.number_of_enemies_destoryed = 0
     end
   end
 

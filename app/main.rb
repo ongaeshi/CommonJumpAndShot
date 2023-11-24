@@ -337,7 +337,7 @@ class Game
   end
 
   def calc_enemies
-    while enemies.count < 3
+    while enemies.count < 3 && rand(30) == 0
       enemies << {
         x: 64 * rand(20),
         y: 64 * (rand(9) + 1),

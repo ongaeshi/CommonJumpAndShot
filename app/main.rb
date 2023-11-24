@@ -44,11 +44,6 @@ class Game
     state.number_of_enemies_destoryed = 0
 
     state.items = []
-    items << {
-      x: 64 * 8,
-      y: 64,
-      is_right: false,
-    }
     state.number_of_items_acquired = 0
 
     state.gravity                = -1
@@ -372,6 +367,23 @@ class Game
   end
 
   def calc_items
+    while items.count == 0 && rand(1) == 0
+      case rand(2)
+      when 0
+        items << {
+          x: 64 * (rand(16) + 2),
+          y: 64,
+          is_right: false,
+        }
+      else
+        items << {
+          x: 64 * (rand(5) + 7),
+          y: 64 * 4,
+          is_right: false,
+        }
+      end
+    end
+
     items.delete_if do |x|
       item_rect = { x: x.x, y: x.y, w: 64, h: 64 }
       if player.rect.intersect_rect? item_rect

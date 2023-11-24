@@ -43,6 +43,14 @@ class Game
     }
     state.number_of_enemies_destoryed = 0
 
+    state.items = []
+    items << {
+      x: 64 * 8,
+      y: 64,
+      is_right: false,
+    }
+    state.number_of_items_acquired = 0
+
     state.gravity                = -1
     state.drag                   = 0.001
     state.tile_size              = 64
@@ -94,6 +102,7 @@ class Game
     render_tiles
     render_player
     render_enemies
+    render_items
     render_weapons
     # render_grid
     render_info
@@ -107,6 +116,7 @@ class Game
   def calc
     calc_player_rect
     calc_enemies
+    calc_items
     calc_weapons
     calc_left
     calc_right
@@ -164,6 +174,19 @@ class Game
     end
   end
 
+  def render_items
+    items.each do |x|
+      outputs.sprites << {
+        x: x.x,
+        y: x.y,
+        w: 64,
+        h: 64,
+        flip_horizontally: !x.is_right,
+        path: "sprites/item1.png",
+      }
+    end
+  end
+
   def render_tiles
     outputs.sprites << state.tiles.map do |t|
       t.merge path: 'sprites/tile1.png',
@@ -205,6 +228,12 @@ class Game
       x: 20,
       y: args.grid.h - 10,
       text: "Enemy: #{state.number_of_enemies_destoryed}",
+    }
+
+    outputs.labels << {
+      x: 20,
+      y: args.grid.h - 30,
+      text: "Item: #{state.number_of_items_acquired}",
     }
   end
 
@@ -337,6 +366,18 @@ class Game
     end
   end
 
+  def calc_items
+    items.delete_if do |x|
+      item_rect = { x: x.x, y: x.y, w: 64, h: 64 }
+      if player.rect.intersect_rect? item_rect
+        state.number_of_items_acquired += 1
+        true
+      else
+        false
+      end
+    end
+  end
+
   def calc_weapons
     weapons.each do |w|
       dir = w.is_right ? 1 : -1
@@ -378,6 +419,10 @@ class Game
 
   def enemies
     state.enemies
+  end
+
+  def items
+    state.items
   end
 
   def player_next_dy

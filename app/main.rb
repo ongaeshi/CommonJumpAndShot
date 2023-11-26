@@ -367,7 +367,7 @@ class Game
   end
 
   def calc_items
-    while items.count == 0 && rand(1) == 0
+    while items.count == 0 && rand(30) == 0
       case rand(2)
       when 0
         items << {

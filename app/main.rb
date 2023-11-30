@@ -1,8 +1,17 @@
 class Game
   attr_gtk
 
+  THEMES = %w(
+    basic
+    pirate
+  )
+
+  def initialize
+    @theme = THEMES[0]
+  end
+
   def sprite_path(name)
-    "sprites/pirate/#{name}"
+    "sprites/#{@theme}/#{name}"
   end
 
   def tick
@@ -108,6 +117,7 @@ class Game
   end
 
   def input
+    input_change_theme
     input_jump
     input_move
   end
@@ -236,6 +246,17 @@ class Game
     }
   end
 
+  def input_change_theme
+    if inputs.keyboard.key_down.space
+      idx = THEMES.find_index @theme
+      if idx < THEMES.count - 1
+        @theme = THEMES[idx + 1]
+      else
+        @theme = THEMES[0]
+      end
+    end
+  end
+
   def input_shot
     if inputs.keyboard.key_down.x || inputs.controller_one.key_down.a
       player_shot
@@ -243,11 +264,11 @@ class Game
   end
 
   def input_jump
-    if inputs.keyboard.key_down.space || inputs.keyboard.key_down.z || inputs.controller_one.key_down.b
+    if inputs.keyboard.key_down.z || inputs.controller_one.key_down.b
       player_jump
     end
 
-    if inputs.keyboard.key_held.space || inputs.keyboard.key_held.z || inputs.controller_one.key_held.b
+    if inputs.keyboard.key_held.z || inputs.controller_one.key_held.b
       player_jump_increase_air_time
     end
   end

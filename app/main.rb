@@ -4,6 +4,7 @@ class Game
   THEMES = %w(
     basic
     pirate
+    halloween
   )
 
   def initialize

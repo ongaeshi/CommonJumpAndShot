@@ -1,6 +1,10 @@
 class Game
   attr_gtk
 
+  def sprite_path(name)
+    "sprites/pirate/#{name}"
+  end
+
   def tick
     defaults
     render
@@ -92,7 +96,7 @@ class Game
       y: 0,
       w: args.grid.w,
       h: args.grid.h,
-      path: 'sprites/background1.png'
+      path: sprite_path("background1.png")
     }
     render_tiles
     render_player
@@ -133,7 +137,7 @@ class Game
       w: player.size,
       h: player.size,
       flip_horizontally: !player.is_right,
-      path: 'sprites/player1.png'
+      path: sprite_path("player1.png")
     }
   end
 
@@ -151,7 +155,7 @@ class Game
         w: 32,
         h: 32,
         flip_horizontally: !w.is_right,
-        path: "sprites/weapon1.png",
+        path: sprite_path("weapon1.png")
       }
     end
   end
@@ -164,7 +168,7 @@ class Game
         w: 64,
         h: 64,
         flip_horizontally: !e.is_right,
-        path: "sprites/enemy1.png",
+        path: sprite_path("enemy1.png"),
       }
     end
   end
@@ -177,14 +181,14 @@ class Game
         w: 64,
         h: 64,
         flip_horizontally: !x.is_right,
-        path: "sprites/item1.png",
+        path: sprite_path("item1.png"),
       }
     end
   end
 
   def render_tiles
     outputs.sprites << state.tiles.map do |t|
-      t.merge path: 'sprites/tile1.png',
+      t.merge path: sprite_path("tile1.png"),
               x: t.ordinal_x * 64,
               y: t.ordinal_y * 64,
               w: 64,
